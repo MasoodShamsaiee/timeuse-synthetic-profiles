@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+title: "timeuse-synthetic-profiles"
+message: "If you use this software, please cite it using the metadata from this file."
+type: software
+authors:
+  - family-names: "Shamsaiee"
+    given-names: "Masood"
+repository-code: "https://github.com/MasoodShamsaiee/timeuse-synthetic-profiles"
+license: "Apache-2.0"

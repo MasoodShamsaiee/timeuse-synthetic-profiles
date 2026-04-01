@@ -43,3 +43,7 @@ conda run -n dsm_qc python -c "import timeuse_synthetic_profiles; print('ok')"
 - this repo reads synthetic population files as inputs but does not import the `synthetic-population-qc` package directly
 - see [docs/data_contracts.md](docs/data_contracts.md) for the expected respondent, episode, and synthetic-population table shapes
 - default paths in the workflow module still reflect the original research data layout, so the next cleanup pass should externalize those paths more aggressively
+
+## Citation
+
+If you use this repository in research, software, or derivative work, please preserve the license notices and cite the project using [CITATION.cff](CITATION.cff).
