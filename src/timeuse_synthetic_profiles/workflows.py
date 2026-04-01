@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+import os
 from pathlib import Path
 from typing import Any
 
@@ -86,6 +87,9 @@ class PreparedTimeUseData:
 
 
 def project_root(cwd: Path | None = None) -> Path:
+    env_root = os.environ.get("TIMEUSE_PROJECT_ROOT")
+    if env_root:
+        return Path(env_root).resolve()
     here = (cwd or Path.cwd()).resolve()
     return here.parent if here.name.lower() == "notebooks" else here
 
@@ -96,10 +100,25 @@ def default_timeuse_paths(root: str | Path | None = None) -> TimeUsePaths:
     proc_time_use = root / "data" / "processed" / "timeuse_profiles"
     proc_syn = root / "data" / "processed" / "synthetic_population"
     return TimeUsePaths(
-        synthetic_population=proc_syn / "syn_inds_with_hh_montreal_p24_seed42_all.parquet",
-        tus_respondents=raw_time_use / "tus_respondents_harmonized.parquet",
-        tus_episodes=raw_time_use / "tus_episodes_harmonized.parquet",
-        out_dir=proc_time_use,
+        synthetic_population=Path(
+            os.environ.get(
+                "TIMEUSE_SYNTHETIC_POPULATION",
+                str(proc_syn / "syn_inds_with_hh_montreal_p24_seed42_all.parquet"),
+            )
+        ),
+        tus_respondents=Path(
+            os.environ.get(
+                "TIMEUSE_TUS_RESPONDENTS",
+                str(raw_time_use / "tus_respondents_harmonized.parquet"),
+            )
+        ),
+        tus_episodes=Path(
+            os.environ.get(
+                "TIMEUSE_TUS_EPISODES",
+                str(raw_time_use / "tus_episodes_harmonized.parquet"),
+            )
+        ),
+        out_dir=Path(os.environ.get("TIMEUSE_OUT_DIR", str(proc_time_use))),
     )
 
 
